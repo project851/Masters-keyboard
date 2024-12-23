@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Master's Keyboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Product+Sans:wght@400&display=swap" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      transition: background-color 0.5s ease, color 0.5s ease;
+    }
+    /* Light Mode */
+    .light-mode {
+      background-color: #ffffff;
+      color: #121212;
+    }
+    .dark-mode a {
+      color:white;
+    }
+    .light-mode .navbar {
+      background-color: #ffffff;
+      color: #121212;
+    }
+    .light-mode .navbar .navbar-nav .nav-link a {
+      color: #121212;
+    }
+    .light-mode .hero-section {
+      background-color: #f4f4f4;
+    }
+    .light-mode .btn-primary {
+      background-color: #007bff;
+      color: #ffffff;
+    }
+    .light-mode .btn-primary:hover {
+      background-color: #0056b3;
+    }
+    .light-mode footer {
+      background-color: #f1f1f1;
+      color: #121212;
+    }
+
+    /* Dark Mode */
+    .dark-mode {
+      background-color: #121212;
+      color: white;
+    }
+    .dark-mode .navbar {
+      background-color: #333;
+      color: white;
+    }
+    .dark-mode .navbar .navbar-nav .nav-link {
+      color: white;
+    }
+    .dark-mode .hero-section {
+      background-color: #1f1f1f;
+    }
+    .dark-mode .btn-primary {
+      background-color: #007bff;
+      color: #ffffff;
+    }
+    .dark-mode .btn-primary:hover {
+      background-color: #0056b3;
+    }
+    .dark-mode footer{
+      background-color: #1a1a1a;
+      color: white;
+      
+    }
+    .dark-mode .keyboard-block{
+      background-color: #1a1a1a;
+      color: white;
+    
+    }
+
+    /* Transition for all modes */
+    .navbar, .hero-section, footer, .btn-primary {
+      transition: background-color 0.5s ease, color 0.5s ease;
+    }
+    .dark-mode h2 h3 h1 p a {
+      color: white;
+    }
+    footer {
+    
+      bottom: 0;
+      width: 100%;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      transition: background-color 0.5s ease, color 0.5s ease;
+    }
+
+    .carousel-item {
+      font-family: 'Product Sans', sans-serif;
+      height: 100vh;
+      object-fit: cover;
+      position: relative;
+    }
+
+    .carousel-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(80%) contrast(130%) blur(5px); /* Apply blur on background */
+      transition: filter 0.3s ease;
+    }
+
+    .carousel-caption {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: white;
+      background-color: rgba(166, 160, 160, 0.5);
+      padding: 20px;
+      width: 90%;
+      border-radius: 10px;
+      transition: background-color 0.3s ease;
+      color: black;
+    }
+    .carousel-caption h5{
+      font-weight:bold;
+      font-size:50px;
+    }
+    .carousel-caption p{
+      font-weight:bold;
+      font-size:30px;
+    }
+.mobile-text {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size:35px;
+      color: black;
+      text-align: center;
+      font-weight: bold;
+      z-index: 10;
+    }
+    /* Responsive styling for carousel caption */
+     @media (max-width: 768px) {
+      .mobile-text {
+        display: block;
+      }
+
+      /* Hide carousel caption on mobile */
+      .carousel-caption {
+        display: none;
+      }
+    }
+  h1 {
+            text-align: center;
+            font-size: 36px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 40px;
+        }
+
+        /* Keyboard block styling */
+        .keyboard-block {
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+            opacity: 0;
+            transform: translateX(-100%);
+            transition: all 0.6s ease-in-out;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .keyboard-block.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .keyboard-block img {
+            max-width: 200px;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        /* Hover effect for images */
+        .keyboard-block img:hover {
+            transform: scale(1.05);
+        }
+
+        .keyboard-block .col-md-6 {
+            padding: 15px;
+        }
+
+        .keyboard-block h4 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .keyboard-block p {
+            font-size: 16px;
+            color: #7f8c8d;
+        }
+
+        /* Text section styling */
+        .keyboard-block.text h4 {
+            text-align: left;
+            color: #16a085;
+        }
+
+        .keyboard-block.text p {
+            text-align: left;
+        }
+
+        /* Border and HR styling */
+        hr {
+            border: 0;
+            border-top: 2px solid #16a085;
+            margin: 20px 0;
+        }
+
+        /* Responsive Styling */
+        @media (max-width: 768px) {
+            .keyboard-block {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .keyboard-block img {
+                margin-bottom: 15px;
+            }
+        }
+
+        /* Style for when image is on the right side */
+        .keyboard-block.text .col-md-6:nth-child(2) {
+            padding-right: 0;
+        }
+
+        .keyboard-block.text img {
+            margin-right: 0;
+        }
+        
+        /* Hover effect for blocks */
+        .keyboard-block:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            border-color: #16a085;
+            cursor: pointer;
+        }
+        .text-primary {
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.text-primary:hover {
+    text-decoration: underline;
+}
+.custom-edge-icon {
+    font-size: 5.5rem; /* Adjust font size specifically for the Edge icon */
+}
+ 
+  </style>
+</head>
+<body class="light-mode">
+ <audio id="audioPlayer" src="./load.wav"></audio>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const audioPlayer = document.getElementById("audioPlayer");
+
+            // Play audio after user interacts with the document
+            document.body.addEventListener("click", function () {
+                audioPlayer.play().then(() => {
+                    console.log("Audio playback started.");
+                }).catch(error => {
+                    console.error("Playback failed:", error);
+                });
+            }, { once: true }); // Ensures the event listener is removed after the first interaction
+        });
+    </script>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light light-mode" id="navbar">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Master's Keyboard</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./courses.html" target="_blank">Courses</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./about.html" target="_blank">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" id="mode-toggle">
+            <i class="fas fa-sun"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Carousel Section -->
+<div id="carouselExample" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="/images/slide-2.jpg" class="d-block w-100" alt="Image 1">
+            <div class="carousel-caption d-none d-md-block">
+                <h5><i class="fas fa-keyboard"></i> The Power of Typing</h5>
+                <p><i class="fas fa-quote-left"></i> "Typing is not just a skill; it's a key to the digital world." <i class="fas fa-quote-right"></i></p>
+                <p>Typing opens doors to faster communication, productivity, and a world of information. Mastering this skill is the first step towards digital literacy.</p>
+            </div>
+            <!-- Mobile-specific text -->
+            <div class="mobile-text">
+                Welcome to Master's Keyboard
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="/images/slide-3.jpg" class="d-block w-100" alt="Image 2">
+            <div class="carousel-caption d-none d-md-block">
+                <h5><i class="fas fa-pen"></i> Learn to Type, Learn to Express</h5>
+                <p><i class="fas fa-quote-left"></i> "Typing opens up endless opportunities to communicate and express ideas quickly." <i class="fas fa-quote-right"></i></p>
+                <p>Whether you're writing emails, coding, or crafting content, typing efficiently allows you to turn thoughts into words faster than ever before.</p>
+            </div>
+            <!-- Mobile-specific text -->
+            <div class="mobile-text">
+                Welcome to Master's Keyboard
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="/images/slide-4.jpg" class="d-block w-100" alt="Image 3">
+            <div class="carousel-caption d-none d-md-block">
+                <h5><i class="fas fa-laptop"></i> Efficiency in Every Keystroke</h5>
+                <p><i class="fas fa-quote-left"></i> "Mastering typing boosts productivity and saves time." <i class="fas fa-quote-right"></i></p>
+                <p>In the workplace, efficient typing can make you more productive, saving valuable time for creativity and innovation.</p>
+            </div>
+            <!-- Mobile-specific text -->
+            <div class="mobile-text">
+                Welcome to Master's Keyboard
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="/images/slide-1.jpg" class="d-block w-100" alt="Image 4">
+            <div class="carousel-caption d-none d-md-block">
+                <h5><i class="fas fa-rocket"></i> Accelerate Your Learning</h5>
+                <p><i class="fas fa-quote-left"></i> "Typing speed and accuracy are key to navigating the digital world with ease." <i class="fas fa-quote-right"></i></p>
+                <p>As your typing skills improve, you'll be able to learn new technologies faster and access more information with ease.</p>
+            </div>
+            <!-- Mobile-specific text -->
+            <div class="mobile-text">
+                Welcome to Master's Keyboard
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="/images/slide-5.jpg" class="d-block w-100" alt="Image 5">
+            <div class="carousel-caption d-none d-md-block">
+                <h5><i class="fas fa-graduation-cap"></i> Master the Art of Typing</h5>
+                <p><i class="fas fa-quote-left"></i> "The ability to type well is a skill that lasts a lifetime and unlocks potential in any field." <i class="fas fa-quote-right"></i></p>
+                <p>Whether you're in school, a professional, or a hobbyist, learning typing gives you a competitive advantage in every aspect of life.</p>
+            </div>
+            <!-- Mobile-specific text -->
+            <div class="mobile-text">
+                Welcome to Master's Keyboard
+            </div>
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+</br></br></br></br>
+<div style = "justify-content:center;display:flex;">
+
+<img src = "/images/loading-animation.gif" style = "height:300px;width:700px;">
+</br></br></br>
+</div>
+    <!-- Container for keyboard types -->
+    <div class="container py-5">
+        <h1  style = "color:blue;">Some knowledge on keyboards</h1>
+        <div id="keyboardSection">
+            <!-- First block (Left image, Right text) -->
+            <div class="row keyboard-block" data-toggle="show">
+                <div class="col-md-6">
+                    <img src="/images/apple.jpg" alt="Apple Keyboard">
+                </div>
+                <div class="col-md-6">
+                    <h4>Apple Keyboard</h4>
+                    <p>The Apple Keyboard offers a sleek, minimalist design with responsive keys and an improved typing experience.</p>
+                    <hr>
+                </div>
+            </div>
+            
+            <!-- Second block (Right image, Left text) -->
+            <div class="row keyboard-block text" data-toggle="show">
+                <div class="col-md-6">
+                    <h4>English Typing Keyboard</h4>
+                    <p>This layout is perfect for fast and accurate typing, with keys arranged in the standard QWERTY format.</p>
+                    <hr>
+                </div>
+                <div class="col-md-6">
+                    <img src="/images/english.jpg" alt="English Keyboard">
+                </div>
+            </div>
+            
+            <!-- Third block (Left image, Right text) -->
+            <div class="row keyboard-block" data-toggle="show">
+                <div class="col-md-6">
+                    <img src="/images/mechanical.jpg" alt="Mechanical Keyboard">
+                </div>
+                <div class="col-md-6">
+                    <h4>Mechanical Keyboard</h4>
+                    <p>Mechanical keyboards are known for their durability and tactile feedback, preferred by gamers and typists.</p>
+                    <hr>
+                </div>
+            </div>
+            
+            <!-- Fourth block (Right image, Left text) -->
+            <div class="row keyboard-block text" data-toggle="show">
+                <div class="col-md-6">
+                    <h4>Ergonomic Keyboard</h4>
+                    <p>Ergonomic keyboards are designed to reduce strain on the hands and wrists, promoting healthier typing posture.</p>
+                    <hr>
+                </div>
+                <div class="col-md-6">
+                    <img src="/images/ergonomic.jpg" alt="Ergonomic Keyboard">
+                </div>
+            </div>
+            
+            <!-- Fifth block (Left image, Right text) -->
+            <div class="row keyboard-block" data-toggle="show">
+                <div class="col-md-6">
+                    <img src="/images/wireless.jpg" alt="Wireless Keyboard">
+                </div>
+                <div class="col-md-6">
+                    <h4>Wireless Keyboard</h4>
+                    <p>Wireless keyboards offer the convenience of cable-free use, perfect for a clean and clutter-free workspace.</p>
+                    <hr>
+                </div>
+            </div>
+            <h3 align = "center">And many more...</h3>
+        </div>
+    </div>
+ 
+<hr>
+
+     <div class="container text-center mt-5">
+        <h1 class="mb-3" style = "color:red;">Supported browsers</h1>
+        <p class="text"  style = "color:green;">The Typing Cat has been built to work only with browsers listed below:</p>
+        <div class="row justify-content-center mt-4">
+            <div class="col-6 col-md-3">
+                <i class="fab fa-chrome fa-5x text-success"></i>
+                <h5 class="mt-2">Google Chrome</h5>
+                <a href="https://www.google.com/chrome/" class="text-primary">Download Google Chrome</a>
+            </div>
+            <div class="col-6 col-md-3">
+                <i class="fab fa-safari fa-5x text-info"></i>
+                <h5 class="mt-2">Safari</h5>
+                <a href="https://www.apple.com/safari/" class="text-primary">Download Safari</a>
+            </div>
+            <div class="col-6 col-md-3">
+                <i class="fab fa-firefox fa-5x text-warning"></i>
+                <h5 class="mt-2">Firefox</h5>
+                <a href="https://www.mozilla.org/firefox/" class="text-primary">Download Firefox</a>
+            </div>
+           <div class="col-6 col-md-3">
+    <i class="fab fa-edge fa-5x text-primary custom-edge-icon"></i>
+    <h5 class="mt-2">Microsoft Edge</h5>
+    <a href="https://www.microsoft.com/edge" class="text-primary">Download Microsoft Edge</a>
+</div>
+
+        </div>
+    </div>
+
+    <!-- JS for Bootstrap and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // jQuery to trigger slide animation when the user scrolls into the section
+        $(document).ready(function() {
+            $(window).scroll(function() {
+                // Check position of each keyboard block
+                $('.keyboard-block').each(function() {
+                    var elementPosition = $(this).offset().top;
+                    var scrollPosition = $(window).scrollTop() + $(window).height();
+
+                    if (scrollPosition > elementPosition) {
+                        $(this).addClass('show');
+                    }
+                });
+            });
+        });
+    </script>
+</br></br></br></br>
+<footer style="background: linear-gradient(45deg, #000000, #333333); color: white; padding: 40px 20px; font-size: 14px;">
+  <div class="container">
+    <div class="row">
+      <!-- About Section -->
+     <div class="col-md-4 mb-4">
+  <h5 class="text-uppercase mb-3" style="border-bottom: 2px solid #f8f9fa; padding-bottom: 10px; font-weight: bold; color: #f8f9fa;">ABOUT</h5>
+  <p style="font-size: 16px; color: #f8f9fa; line-height: 1.6;">
+    Welcome to <strong>Master's Keyboard</strong>, your go-to platform for mastering typing skills. Whether you're preparing for speed tests or learning advanced techniques, we provide resources to make typing faster, accurate, and enjoyable.
+  </p>
+  <a href="./about.html" class="btn btn-outline-light mt-3" style="border-radius: 30px; padding: 8px 20px; font-size: 14px; transition: all 0.3s ease;">
+    Learn More
+  </a>
+</div>
+
+      
+      <!-- Contact Info -->
+      <div class="col-md-4 mb-4">
+        <h5 class="text-uppercase mb-3" style="border-bottom: 2px solid white; padding-bottom: 10px;">CONTACT INFO</h5>
+       <ul class="list-group">
+  <li class="list-group-item"><strong>Email:</strong> support@masterskeyboard.com</li>
+  <li class="list-group-item"><strong>Location:</strong> A.P, India</li>
+</ul>
+
+      </div>
+      
+    <!-- Quick Links -->
+<div class="col-md-4 mb-4">
+  <h5 class="text-uppercase mb-3" style="border-bottom: 2px solid white; padding-bottom: 10px; font-weight: bold; color: #f8f9fa;">QUICK LINKS</h5>
+  <ul class="navbar-nav ms-auto" style="margin-left: auto; display: flex; flex-direction: column; list-style: none; padding: 0; gap: 10px;">
+    <li class="nav-item">
+      <a class="nav-link active" href="#" style="color: #f8f9fa; text-decoration: none; font-size: 16px; padding: 10px; border-radius: 5px; transition: background-color 0.3s;">
+        Home
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="./courses.html" target="_blank" style="color: #f8f9fa; text-decoration: none; font-size: 16px; padding: 10px; border-radius: 5px; transition: background-color 0.3s;">
+        Courses
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="./about.html" target="_blank" style="color: #f8f9fa; text-decoration: none; font-size: 16px; padding: 10px; border-radius: 5px; transition: background-color 0.3s;">
+        About
+      </a>
+    </li>
+    </ul>
+</div>
+
+
+    <!-- Divider -->
+    <hr style="border-color: white; opacity: 0.5;">
+    
+    <!-- Footer Bottom -->
+    <div class="row">
+      <div class="col-md-6 text-center text-md-start">
+        <p class="mb-0">&copy; 2024 All Rights Reserved by <a href="#" class="text-decoration-none text-white">Master's Keyboard</a>.</p>
+      </div>
+      <div class="col-md-6 text-center text-md-end">
+        <img src="your-logo.png" alt="Website Logo" style="height: 50px;">
+        <span style="font-size: 18px; margin-left: 10px;">Master's Keyboard</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Bootstrap JS, Popper.js, and jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  // Dark and Light Mode Toggle
+  $("#mode-toggle").click(function() {
+    $("body").toggleClass("dark-mode light-mode");
+    $(".navbar").toggleClass("navbar-dark-mode navbar-light-mode");
+    $(".hero-section").toggleClass("dark-mode light-mode");
+    
+    // Toggle icon between sun and moon
+    if ($("body").hasClass("dark-mode")) {
+      $("#mode-toggle i").removeClass("fas fa-sun").addClass("fas fa-moon");
+    } else {
+      $("#mode-toggle i").removeClass("fas fa-moon").addClass("fas fa-sun");
+    }
+  });
+</script>
+
+</body>
+</html>

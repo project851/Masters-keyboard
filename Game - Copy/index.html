@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  
+  <!-- FONTAWESOME -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
+    integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+  <!-- CSS STYLING -->
+  <link rel="stylesheet" href="styles/styles.css">
+
+  <!-- GOOGLE FONTS -->
+  <link href="https://fonts.googleapis.com/css?family=Anonymous+Pro" rel="stylesheet">
+
+  <title>Master's keyboard --game</title>
+</head>
+
+<body>
+
+  <!-- ENTIRE GAME SECTION -->
+  <main class="game-section" style = "background-color:grey;">
+
+    <!-- TOP CODE EDITOR BAR -->
+    <div class="bg-top"><i class="fas fa-caret-left"></i><i class="fas fa-caret-right"></i>
+      <div class="file-name">Master's keyboard</div>
+      <i class="fas fa-caret-down"></i>
+    </div>
+    <div class="stats">
+      <h2 class="score">SCORE:
+        <span class="metric"></span>
+      </h2>
+      <h2 class="timer">TIMER:
+        <span class="metric"></span>
+      </h2>
+    </div>
+
+    <!-- BOTTOM CODE EDITOR BAR -->
+    <div class="bg-bottom">Line 1, Column 1</div>
+
+    <!-- INTRO SLIDES -->
+    <section class="intro">
+
+      <!-- TOP WINDOW BAR  -->
+      <div class="window-line">
+        <i class="fas fa-circle circle-red"></i>
+        <i class="fas fa-circle circle-orange"></i>
+        <i class="fas fa-circle circle-green"></i>
+        <p class="bash-window">Let's get started</p>
+      </div>
+
+      <!-- FIRST SLIDE: INTRO -->
+      <section class="intro-title">
+        <h1><span class="blink-text">> </span><span class="welcome blink-cursor">Welcome to: Master's keyboard typing game</span>
+        </h1>
+        <a href="#">
+          <h4 class="author">BY: K.Phani</h4>
+        </a>
+        <button class="read-rules">PRESS ENTER TO CONTINUE</button>
+      </section>
+
+      <!-- SECOND SLIDE: RULES -->
+      <section class="intro-rules ">
+        <h3>> <span class="rules-title">RULES</span></h3>
+        <ul class="rules">
+          <li class="rule-1">Type any of the words you see on your screen to get points.</li>
+          <li class="rule-2">Longer words give more points.</li>
+          <li class="rule-3">Press ENTER to quickly erase your current input.</li>
+        </ul>
+        <h3>> <span class="win-title">YOU WIN IF:</span></h3>
+        <ul class="win-conditions">
+          <li class="win-1">Your score reaches 2500.</li>
+        </ul>
+        <h3>> <span class="lose-title">YOU LOSE IF:</span></h3>
+        <ul class="lose-conditions">
+          <li class="lose-1">You have more than 10 words unanswered on your screen.</li>
+          <li class="lose-2">Timer reaches ZERO.</li>
+        </ul>
+        <button class="game-start">PRESS <span>ENTER</span> TO START</button>
+      </section>
+    </section>
+
+
+    <!-- WRAPPER FOR ACTUAL WORDS GENERATED IN GAME -->
+    <div class="word-wrapper ">
+      <form class="user-form" action="" autocomplete="off">
+        <label for="user-input" class="visuallyhidden ">User Input</label>
+        <input type="text" name="user-input" id="user-input" class="user-input" autocomplete="off">
+      </form>
+      <div class="words">
+      </div>
+    </div>
+
+    <!-- ENDING SLIDES -->
+    <section class="ending ">
+
+      <!-- VICTORY SLIDE -->
+      <section class="ending-win ">
+        <h2 class="ending-win-title">CONGRATULATIONS!</h2>
+        <p class="ending-win-msg">You are a type master.</p>
+        <div class="ending-stats ">
+          <p class="stat-container">You typed: <span class="ending-stat ending-number-of-words">0</span> words</p>
+          <p class="stat-container">Average rate (per second): <span
+              class="ending-stat ending-average-typing-second">0</span>
+            words/second</p>
+          <p class="stat-container">Average rate (per minute): <span
+              class="ending-stat ending-average-typing-minute">0</span>
+            words/minute</p>
+        </div>
+        <button class="reset">PRESS <span>ENTER</span> TO PLAY AGAIN</button>
+
+
+      </section>
+
+      <!-- LOSING SLIDE -->
+      <section class="ending-lose ">
+        <h2 class="ending-lose-title">GAME OVER</h2>
+        <p class="ending-sorry"> Sorry, you're not a type master.</p>
+        <button class="reset ">PRESS <span>ENTER</span> TO PLAY AGAIN</button>
+      </section>
+
+     
+      
+    </section>
+
+  </main>
+
+  <!-- FOR REGULAR JQUERY -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js "></script>
+  <!-- FOR JQUERY UI -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js "></script>
+  <!-- FOR JS SCRIPTS -->
+  <script>
+  const words = [
+  "abysmal", "anomaly", "renounce", "selflessness", "annul", "flee", "obscure", "agree", "approach",
+  "accumulation", "insight", "unyielding", "warn", "foreshadow", "unfavorable", "support", "wealthy",
+  "amplify", "eagerness", "pseudonym", "uncertain", "agreeable", "shapeless", "outdated", "curse", "attach",
+  "ancient", "sterile", "indifferent", "contrast", "doubtful", "approval", "capricious", "tree-related",
+  "mysterious", "quintessential", "claim", "austere", "slander", "diligent", "degeneration", "curse", "shy",
+  "charm", "deprived", "flattery", "cheat", "inflated", "persuade", "insensitive", "slander", "friendship",
+  "honesty", "surrender", "revel", "complain", "meeting", "leap", "wordiness", "limit", "bypass", "uproar",
+  "split", "shoemaker", "convincing", "aware", "proportionate", "supplement", "remorse", "accompanying", "channel",
+  "fire", "harmony", "conspire", "assign", "component", "interpret", "bruise", "remorseful", "controversial",
+  "violate", "sociable", "obesity", "desire", "greed", "scarcity", "failure", "indulge", "disprove", "obsolete",
+  "agitator", "belittle", "unoriginal", "tyrant", "transparent", "instructional", "lament", "alienated", "embarrass",
+  "different", "scatter", "dishonor", "polarizing", "rigid", "gloomy", "deceit", "coercion", "varied", "decree",
+  "enthusiastic", "outrageous", "tribute", "persuade", "embezzlement", "emend", "emollient", "empirical",
+  "emulate", "enervate", "enfranchise", "engender", "ephemeral", "epistolary", "equanimity", "equivocal", "espouse",
+  "evanescent", "evince", "exacerbate", "exhort", "execrable", "exigent", "expedient", "expiate", "expunge",
+  "extraneous", "extol", "extant", "expurgate", "fallacious", "fatuous", "fetter", "flagrant", "foil", "forbearance",
+  "fortuitous", "fractious", "garrulous", "gourmand", "grandiloquent", "gratuitous", "hapless", "hegemony",
+  "heterogenous", "iconoclast", "idiosyncratic", "impecunious", "impetuous", "impinge", "impute", "inane", "inchoate",
+  "incontrovertible", "incumbent", "inexorable", "inimical", "injunction", "inoculate", "insidious", "instigate",
+  "insurgent", "interlocutor", "intimation", "inure", "invective", "intransigent", "inveterate", "irreverence",
+  "knell", "laconic", "largesse", "legerdemain", "libertarian", "licentious", "linchpin", "litigant", "maelstrom",
+  "maudlin", "maverick", "mawkish", "maxim", "mendacious", "modicum", "morass", "mores", "munificent", "multifarious",
+  "nadir", "negligent", "neophyte", "noisome", "noxious", "obdurate", "obfuscate", "obstreperous", "officious",
+  "onerous", "ostensible", "ostracism", "palliate", "panacea", "paradigm", "pariah", "partisan", "paucity", "pejorative",
+  "pellucid", "penchant", "penurious", "pert", "pernicious", "pertinacious", "phlegmatic", "philanthropic", "pithy",
+  "platitude", "plaudit", "plenitude", "plethora", "portent", "potentate", "preclude", "predilection", "preponderance",
+  "presage", "probity", "proclivity", "profligate", "promulgate", "proscribe", "protean", "prurient", "puerile",
+  "pugnacious", "pulchritude", "punctilious", "quaint", "quixotic", "quandary", "recalcitrant", "redoubtable", "relegate",
+  "remiss", "reprieve", "reprobate", "rescind", "requisition", "rife", "sanctimonious", "sanguine", "scurrilous",
+  "semaphore", "serendipity", "sobriety", "solicitous", "solipsism", "spurious", "staid", "stolid", "subjugate", "surfeit",
+  "surreptitious", "swarthy", "tangential", "tome", "toady", "torpid", "travesty", "trenchant", "trite", "truculent",
+  "turpitude", "ubiquitous", "umbrage", "upbraid", "utilitarian", "veracity", "vestige", "vicissitude", "vilify",
+  "virtuoso", "vitriolic", "vituperate", "vociferous", "wanton", "winsome", "yoke", "zephyr", "wily", "tirade"
+];
+</script>
+  <script src="./js/utils.js "></script>
+  <script src="./js/animation.js "></script>
+  <script>
+  
+const gameApp = {};
+
+gameApp.listOfWords = [...words]
+gameApp.score = 0;
+gameApp.wordsTyped = 0;
+gameApp.wordCounter = 1;
+gameApp.timerStart = 60;
+gameApp.startTime = 0;
+gameApp.endTime = 0;
+gameApp.winningScoreThreshold = 2500;
+gameApp.loseCondition = 10;
+gameApp.wordGenerationSpeed = 1500;
+gameApp.currentWordsPositions = [];
+gameApp.gameOver = false;
+
+gameApp.showRules = function () {
+  // Display intro text
+  setTimeout(function () {
+    $(".blink-text").removeClass();
+  }, 1750);
+  setTimeout(function () {
+    animations.typewriter(".welcome", 40);
+  }, 1750);
+  setTimeout(function () {
+    animations.typewriter(".author", 40);
+  }, 3000);
+  setTimeout(function () {
+    animations.typewriter(".read-rules", 40);
+  }, 3000);
+
+  // Listen for ENTER to continue
+  $(document).on("keypress", function (event) {
+    if (event.which === 13 && $(".intro-title").is(":visible")) {
+      // Display welcome
+      $(".intro-title").slideUp(500);
+      $(".intro-rules")
+        .delay(500)
+        .fadeIn();
+
+      // Go to start game event handler
+      gameApp.startGame();
+    }
+  });
+};
+
+/* A2. START GAME FUNCTION (i.e initiate the generatation of words) */
+gameApp.startGame = function () {
+  // Display rules
+  setTimeout(function () {
+    animations.typewriter(".rules-title", 40);
+    animations.typewriter(".win-title", 40);
+    animations.typewriter(".lose-title", 40);
+  }, 750);
+  setTimeout(function () {
+    animations.typewriter(".rule-1", 20);
+    animations.typewriter(".rule-2", 20);
+    animations.typewriter(".rule-3", 20);
+    animations.typewriter(".win-1", 20);
+    animations.typewriter(".lose-1", 20);
+    animations.typewriter(".lose-2", 20);
+    animations.typewriter(".game-start", 40);
+  }, 1250);
+
+  // Listen for ENTER to continue
+  $(document).one("keypress", function (event) {
+    if (event.which === 13 && $(".intro-rules").is(":visible")) {
+      // Prepare the gaming background
+      $(".intro").slideUp(500);
+      $(".score")
+        .find(".metric")
+        .text(gameApp.score);
+      $(".timer")
+        .find(".metric")
+        .text(gameApp.timerStart);
+      $(".score, .timer, .user-input").fadeIn();
+      $(".bg-top, .bg-bottom")
+        .css("display", "flex")
+        .hide()
+        .fadeIn();
+
+      // Get the starting time stamp
+      gameApp.startTime = new Date();
+
+      // Start the game
+      setTimeout(function () {
+        gameApp.generateWords();
+      }, 350);
+
+      // Clear any previous word input and turn focus to input box
+      $("input").val("");
+      $(".user-input").focus();
+    }
+  });
+};
+
+gameApp.generateWords = () => {
+  gameApp.countDown(gameApp.timerStart);
+  const game = setInterval(function () {
+   
+    if (gameApp.score >= gameApp.winningScoreThreshold) {
+    
+      gameApp.gameOver = true;
+      clearInterval(game);
+      gameApp.playAgain();
+
+   
+      gameApp.endTime = new Date();
+      const averageTypingSecond = (gameApp.wordsTyped / ((gameApp.endTime - gameApp.startTime) / 1000)).toFixed(2);
+      const averageTypingMinute = Math.floor(averageTypingSecond * 60);
+
+      
+      $(".ending-number-of-words").text(gameApp.wordsTyped);
+      $(".ending-average-typing-second").text(averageTypingSecond);
+      $(".ending-average-typing-minute").text(averageTypingMinute);
+      $(".ending, .ending-win").css("display", "flex");
+
+     
+      setTimeout(function () {
+        animations.typewriter(".ending-win-title", 50);
+        animations.typewriter(".ending-win-msg", 50);
+        $(".stat-container").addClass("spin");
+        animations.typewriter(".ending-number-of-words", 125);
+        animations.typewriter(".ending-average-typing-second", 125);
+        animations.typewriter(".ending-average-typing-minute", 125);
+        animations.typewriter(".ending-win .reset", 25);
+      }, 300);
+    }
+
+   
+    const wordsOnScreen = $(".word").length;
+
+  
+    if (wordsOnScreen > gameApp.loseCondition) {
+    
+      gameApp.gameOver = true;
+      gameApp.playAgain();
+      clearInterval(game);
+
+      setTimeout(function () {
+        animations.typewriter(".ending-lose-title", 50);
+        animations.typewriter(".ending-sorry", 25);
+        animations.typewriter(".ending-lose .reset", 25);
+      }, 300);
+      $(".ending, .ending-lose").css("display", "flex");
+    }
+
+    const randomWordPosition = utils.getRandomInteger(gameApp.listOfWords.length);
+    const randomWord = gameApp.listOfWords[randomWordPosition];
+    gameApp.listOfWords.splice(randomWordPosition, 1);
+
+    const wordXPosition = `${utils.getRandomInteger(90)}%`;
+    const WordYPosition = `${utils.getRandomInteger(73) + 12}%`;
+
+    const wordId = `word-${gameApp.wordCounter}`;
+    $(".words").append(`<h3 class="word" id="${wordId}">${randomWord}</h3>`);
+    $(`#${wordId}`).css({
+      bottom: WordYPosition,
+      left: wordXPosition,
+      visibility: "hidden"
+    });
+
+    gameApp.detectCollision($(`#${wordId}`));
+
+    gameApp.wordCounter++;
+  }, gameApp.wordGenerationSpeed);
+};
+
+
+gameApp.getInput = function () {
+  $("input").on("input", function () {
+    
+    const userWord = $("input")
+      .val()
+      .trim();
+
+    const currentWords = $(".word");
+
+    let match = false;
+    for (let i = 0; i < currentWords.length; i++) {
+      const word = currentWords[i];
+
+      if (word.innerText === userWord) {
+        match = true;
+        $(".user-input").effect(
+          "highlight",
+          {
+            color: "#a7efae"
+          },
+          300
+        );
+      
+        animations.removeElement($(`#${word.id}`));
+
+      
+        gameApp.score += utils.getWordScore(word.innerText);
+        gameApp.wordsTyped++;
+        $(".score")
+          .find("span")
+          .text(gameApp.score);
+
+      
+        $("input").val("");
+      }
+    }
+  });
+};
+
+gameApp.detectCollision = function (word) {
+  let collision = false;
+  const top = word.position().top;
+  const left = word.position().left;
+  const width = word.width();
+  const height = word.height();
+  const right = left + width;
+  const bottom = top + height;
+  const positions = { top: top, left: left, right: right, bottom: bottom };
+
+  if (gameApp.currentWordsPositions.length === 0) {
+    gameApp.currentWordsPositions.push(positions);
+    word
+      .css({ visibility: "visible" })
+      .hide()
+      .fadeIn();
+  } else {
+ 
+
+    for (let i = 0; i < gameApp.currentWordsPositions.length; i++) {
+      const currentTop = gameApp.currentWordsPositions[i].top;
+      const currentBot = gameApp.currentWordsPositions[i].bottom;
+      const currentLeft = gameApp.currentWordsPositions[i].left;
+      const currentRight = gameApp.currentWordsPositions[i].right;
+
+      if (width <= currentRight - currentLeft) {
+        
+        if (
+          ((top >= currentTop && top <= currentBot) || (bottom <= currentBot && bottom >= currentTop)) &&
+          ((left >= currentLeft && left <= currentRight) || (right <= currentRight && right >= currentLeft))
+        ) {
+          const newXPosition = `${utils.getRandomInteger(90)}%`;
+          const newYPosition = `${utils.getRandomInteger(73) + 12}%`;
+          word.css({
+            bottom: newYPosition,
+            left: newXPosition,
+            visibility: "hidden"
+          });
+         
+          collision = true;
+          gameApp.detectCollision(word);
+        }
+      }
+ 
+      else if (width > currentRight - currentLeft) {
+      
+        if (
+          ((top >= currentTop && top <= currentBot) || (bottom <= currentBot && bottom >= currentTop)) &&
+          ((left >= currentLeft && left <= currentRight) ||
+            (right <= currentRight && right >= currentLeft) ||
+            (left <= currentLeft && right >= currentRight))
+        ) {
+          const newXPosition = `${utils.getRandomInteger(90)}%`;
+          const newYPosition = `${utils.getRandomInteger(73) + 12}%`;
+          word.css({
+            bottom: newYPosition,
+            left: newXPosition,
+            visibility: "hidden"
+          });
+        
+          collision = true;
+          gameApp.detectCollision(word);
+        }
+      }
+    }
+  
+    if (collision === false) {
+      gameApp.currentWordsPositions.push(positions);
+      word
+        .css({ visibility: "visible" })
+        .hide()
+        .fadeIn();
+    }
+  }
+};
+
+gameApp.countDown = function (startTime) {
+  let remainingTime = startTime;
+  const timer = setInterval(function () {
+    if (gameApp.gameOver === true) {
+      clearInterval(timer);
+    }
+    remainingTime--;
+    $(".timer")
+      .find("span")
+      .text(remainingTime);
+  }, 1000);
+};
+
+/* B5. CLEAR WORD IN INPUT BOX ON SUBMIT  */
+gameApp.clearWord = function () {
+  $("form").on("submit", function (event) {
+    event.preventDefault();
+    $("input").val("");
+  });
+};
+
+gameApp.playAgain = function () {
+  $(document).on("keypress", function (event) {
+    if (event.which === 13 && $(".reset").is(":visible")) {
+      window.location.reload();
+    }
+  });
+};
+
+gameApp.init = function () {
+  gameApp.showRules();
+  gameApp.getInput();
+  gameApp.clearWord();
+};
+
+$(function () {
+  gameApp.init();
+});
+</script>
+</body>
+
+</html>
